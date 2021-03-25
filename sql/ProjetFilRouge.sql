@@ -53,7 +53,7 @@ CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nom` varchar(60) COLLATE latin1_bin NOT NULL,
   `prenom` varchar(80) COLLATE latin1_bin NOT NULL,
-  `mail` varchar(50) COLLATE latin1_bin NOT NULL,
+  `mail` varchar(100) COLLATE latin1_bin NOT NULL,
   `telephone` varchar(10) COLLATE latin1_bin DEFAULT NULL,
   `role` enum('Admin','Membre') COLLATE latin1_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
