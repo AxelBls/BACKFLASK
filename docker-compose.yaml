@@ -6,10 +6,10 @@ networks:
 
 services:
   pfrapplication:
-      hostname: pfr
+      hostname: back
       build: .
       ports:
-        - 26000:5000
+        - 5000:5000
       links:
         - dbm:mysql
       depends_on:

@@ -1,4 +1,4 @@
-## MANUEL DE LANCEMENT POUR LE BACK
+## LANCEMENT MANUEL POUR LE BACK
 
 ### Pour lancer l'application de base de données (MYSQL)
 
@@ -27,3 +27,18 @@ docker run -d  --name phpmyadmin --link dbm:mysql \
 
 - lancer le navigateur à l'adresse <ip>:8181
 - Login : root | Mot de passe : password
+
+### Pour lancer l'application flask :
+```shell
+docker build -t pfr-mysql .
+docker run -d -it --name mypfr --link dbm:pfr -p 5000:5000 pfr-mysql
+```
+
+## LANCEMENT AUTOMATIQUE VIA DOCKER-COMPOSE
+```shell
+docker-compose up -d --build
+```
+## POUR STOPPER TOUT LES CONTENEURS
+```shell
+docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
+```

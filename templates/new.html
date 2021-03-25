@@ -4,14 +4,22 @@
   <form action="" method=post>
     <p>
       Nom:
-      <input type=text name=nom value="{{ request.form.nom }}">
-    <p>Prenom:
-        <input type=text name=prenom value="{{ request.form.prenom }}">
-    <p>Mail:
-        <p><textarea name=text rows=10 cols=40>{{ request.form.mail }}</textarea>
-    <p>Telephone:
-        <input type=text name="telephone" value="{{ request.form.telephone }}">
-    <p>
+        <label>
+            <input type=text name=nom value="{{ request.form.nom }}">
+        </label>
+      <p>Prenom:
+          <label>
+              <input type=text name=prenom value="{{ request.form.prenom }}">
+          </label>
+      <p>Mail:
+        <p><label>
+            <textarea name=text rows=10 cols=40>{{ request.form.mail }}</textarea>
+        </label>
+      <p>Telephone:
+          <label>
+              <input type=text name="telephone" value="{{ request.form.telephone }}">
+          </label>
+      <p>
       <input type=submit value="Create entry">
       <a href="{{ url_for('show_all') }}">Retour à la liste</a>
   </form>
