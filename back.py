@@ -26,7 +26,7 @@ class User(db.Model):
         self.role = 'member'
 
 
-@app.route('/users')
+@app.route('/')
 def show_all_users():
     return render_template('show_all.html', users=User.query.all())
 
