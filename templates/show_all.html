@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
   <h2>All Items</h2>
-  <form action="{{ url_for('update_done') }}" method=post>
+  <form action="{{ url_for('update_user') }}" method=post>
     <table class=users>
       <tr>
         <th>#
@@ -9,7 +9,7 @@
         <th>Prenom
         <th>Mail
         <th>Telephone
-      {%- for todo in todos %}
+      {%- for user in users %}
       <tr class=title>
         <td>{{ user.id }}
         <td>{{ user.nom }}

@@ -23,35 +23,34 @@ class User(db.Model):
         self.prenom = prenom
         self.mail = mail
         self.telephone = telephone
-        self.role = 'member'
+        self.role = 'membre'
 
 
-@app.route('/')
+@app.route('/user', methods=['GET'])
 def show_all_users():
     return render_template('show_all.html', users=User.query.all())
 
 
-@app.route('/user/new', methods=['GET', 'POST'])
+@app.route('/user/new', methods=['POST'])
 def new():
-    if request.method == 'POST':
-        if not request.form['nom']:
-            flash('Le nom est requis', 'error')
-        elif not request.form['prenom']:
-            flash('Le prenom est requis', 'error')
-        elif not request.form['mail']:
-            flash('Le mail est requis', 'error')
-        elif not request.form['telephone']:
-            flash('mettre le n° tel est recommandé', 'warning')
-        else:
-            user = User(request.form['nom'], request.form['prenom'], request.form['mail'], request.form['telephone'])
-            db.session.add(user)
-            db.session.commit()
-            flash(u'Compte bien créé !')
-            return redirect(url_for('show_all_users'))
+    if not request.form['nom']:
+        flash('Le nom est requis', 'error')
+    elif not request.form['prenom']:
+        flash('Le prenom est requis', 'error')
+    elif not request.form['mail']:
+        flash('Le mail est requis', 'error')
+    elif not request.form['telephone']:
+        flash('mettre le n° tel est recommandé', 'warning')
+    else:
+        user = User(request.form['nom'], request.form['prenom'], request.form['mail'], request.form['telephone'])
+        db.session.add(user)
+        db.session.commit()
+        flash(u'Compte bien créé !')
+        return redirect(url_for('show_all_users'))
     return render_template('new.html')
 
 
-@app.route('/user/update', methods=['POST'])
+@app.route('/user/update', methods=['PUT'])
 def update_user():
     for user in User.query.all():
         user.nom = ('nom.%d' % user.id) in request.form
