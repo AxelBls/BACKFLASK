@@ -1,3 +1,7 @@
+#Ce fichier permet la création et le lancement des différents conteneurs docker utiles pour le projet
+#Ici , nous souhaitons lancer 3 conteneurs , un pour mySQL (language de base de données), un pour phpMyAdmin
+#(permettant la visualisation globale de la BDD) ainsi que notre application flask .
+
 version: '3'
 
 networks:

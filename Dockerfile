@@ -1,3 +1,7 @@
+#Ce fichier nous permet de réaliser les différentes taches utiles au lancement de notre application flask
+#Entre autre : les installations de dépendance , la mise à jour des paquets, l'installation des paquets
+#indiqués dans le requirements.txt ainsi que le lancement du serveur flask
+
 FROM ubuntu
 
 RUN apt-get update

@@ -1,14 +1,15 @@
 #! /usr/bin/python3
-
+# Les imports concernent les librairies associées à flask et concernant la gestion des bases de données
 from flask import Flask, request, flash, url_for, redirect, \
     render_template
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.config.from_pyfile('back.cfg')
-db = SQLAlchemy(app)
+app = Flask(__name__)  # On crée une application flask définie par un nom d'application
+app.config.from_pyfile('back.cfg')  # On affecte à cette application , un fichier de configuration
+db = SQLAlchemy(app)  # On définie un système de bases de données associée à l'application
 
 
+# On crée une classe représentant la première table de notre base de données
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column('id', db.Integer, primary_key=True)
@@ -18,6 +19,7 @@ class User(db.Model):
     telephone = db.Column('telephone', db.String(10))
     role = db.Column('role', db.Enum('admin', 'membre'))
 
+    # On définit un constructeur en donnant un rôle par défaut
     def __init__(self, nom, prenom, mail, telephone):
         self.nom = nom
         self.prenom = prenom
@@ -26,20 +28,23 @@ class User(db.Model):
         self.role = 'membre'
 
 
+# Cette fonction permet de récupérer la totalité de notre table users en
+# utilisant la requête http GET
 @app.route('/user', methods=['GET'])
 def show_all_users():
     return render_template('show_all.html', users=User.query.all())
 
 
-@app.route('/user/new', methods=['POST'])
+# Cette fonction permet de créer une nouvelle entité user dans la table users (on utilise la requête http POST)
+@app.route('/user/new', methods=['GET', 'POST'])
 def new():
-    if not request.form['nom']:
+    if not request.form.get('nom', False):
         flash('Le nom est requis', 'error')
-    elif not request.form['prenom']:
+    elif not request.form.get('prenom', False):
         flash('Le prenom est requis', 'error')
-    elif not request.form['mail']:
+    elif not request.form.get('mail', False):
         flash('Le mail est requis', 'error')
-    elif not request.form['telephone']:
+    elif not request.form.get('telephone', False):
         flash('mettre le n° tel est recommandé', 'warning')
     else:
         user = User(request.form['nom'], request.form['prenom'], request.form['mail'], request.form['telephone'])
@@ -50,6 +55,7 @@ def new():
     return render_template('new.html')
 
 
+# Cette fonction permet la modification d'une donnée d'une entitée dans la table users
 @app.route('/user/update', methods=['PUT'])
 def update_user():
     for user in User.query.all():
