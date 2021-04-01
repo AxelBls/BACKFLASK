@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>All Products</h2>
+  <form action="{{ url_for('show_all_products') }}" method=post>
+    <table class=products>
+      <tr>
+        <th>#
+        <th>Nom
+        <th>Prix
+        <th>Quantité
+      {%- for product in products %}
+      <tr class=title>
+        <td>{{ product.id }}
+        <td>{{ product.nom }}
+        <td>{{ user.prix }}
+        <td>{{ user.qte }}
+      {%- endfor %}
+    </table>
+    <p>
+      <input type=submit value="Update">
+      <a href="{{ url_for('new') }}">New item</a>
+  </form>
+{% endblock %}

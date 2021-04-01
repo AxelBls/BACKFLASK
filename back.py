@@ -67,8 +67,9 @@ def update_user():
     db.session.commit()
     return redirect(url_for('show_all_users'))
 
+
 # On crée une classe représentant la table produits de notre base de données
-class Produit(db.model):
+class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column('id', db.Integer, primary_key=True)
     nom = db.Column('nom', db.String(50))
@@ -82,6 +83,11 @@ class Produit(db.model):
         self.description = description
         self.prix = prix
         self.qte = qte
+
+
+def show_all_products():
+    return render_template('show_all_products', products=Product.query.all())
+
 
 if __name__ == '__main__':
     app.run()
