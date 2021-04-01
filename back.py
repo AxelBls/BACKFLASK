@@ -68,7 +68,7 @@ def update_user():
     return redirect(url_for('show_all_users'))
 
 # On crée une classe représentant la table produits de notre base de données
-class Produit(db.model)
+class Produit(db.model):
     __tablename__ = 'products'
     id = db.Column('id', db.Integer, primary_key=True)
     nom = db.Column('nom', db.String(50))
