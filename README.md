@@ -42,3 +42,13 @@ docker-compose up -d --build
 ```shell
 docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 ```
+
+
+
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get install -y python3-venv
+python3 -m venv venv
+source venv/bin/activate
+pip3 install docker
+pip3 install docker-compose

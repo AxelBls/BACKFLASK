@@ -67,6 +67,21 @@ def update_user():
     db.session.commit()
     return redirect(url_for('show_all_users'))
 
+# On crée une classe représentant la table produits de notre base de données
+class Produit(db.model)
+    __tablename__ = 'products'
+    id = db.Column('id', db.Integer, primary_key=True)
+    nom = db.Column('nom', db.String(50))
+    description = db.Column('description', db.String(300))
+    qte = db.Column('qte', db.BigInteger)
+    prix = db.Column('prix', db.Float)
+
+    # On définit un constructeur en donnant un rôle par défaut
+    def __init__(self, nom, description, qte, prix):
+        self.nom = nom
+        self.description = description
+        self.prix = prix
+        self.qte = qte
 
 if __name__ == '__main__':
     app.run()
