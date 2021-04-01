@@ -84,7 +84,7 @@ class Product(db.Model):
         self.prix = prix
         self.qte = qte
 
-
+@app.route('/products', methods=['GET'])
 def show_all_products():
     return render_template('show_all_products', products=Product.query.all())
 
