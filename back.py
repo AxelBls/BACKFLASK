@@ -35,6 +35,11 @@ def show_all_users():
     return render_template('show_all.html', users=User.query.all())
 
 
+@app.route('/user/new', methods=['GET'])
+def show_new():
+    return render_template('new.html')
+
+
 # Cette fonction permet de créer une nouvelle entité user dans la table users (on utilise la requête http POST)
 @app.route('/user/new', methods=['GET', 'POST'])
 def new():
@@ -55,14 +60,19 @@ def new():
     return render_template('new.html')
 
 
+@app.route('/user/update/<identifier>', methods=['GET'])
+def show_update(identifier):
+    return render_template('update_user.html', user=User.query.filter_by(id=identifier).first)
+
+
 # Cette fonction permet la modification d'une donnée d'une entitée dans la table users
-@app.route('/user/update', methods=['PUT'])
-def update_user():
-    for user in User.query.all():
-        user.nom = ('nom.%d' % user.id) in request.form
-        user.prenom = ('prenom.%d' % user.id) in request.form
-        user.mail = ('mail.%d' % user.id) in request.form
-        user.telephone = ('telephone.%d' % user.id) in request.form
+@app.route('/user/update/', methods=['GET', 'PUT'])
+def update_user(identifier):
+    for user in User.query.filter_by(id=identifier).first:
+        user.nom = ('nom.%d' % user.nom) in request.form
+        user.prenom = ('prenom.%d' % user.prenom) in request.form
+        user.mail = ('mail.%d' % user.mail) in request.form
+        user.telephone = ('telephone.%d' % user.telephone) in request.form
     flash('UTILISATEUR MIS A JOUR')
     db.session.commit()
     return redirect(url_for('show_all_users'))
@@ -84,10 +94,11 @@ class Product(db.Model):
         self.prix = prix
         self.qte = qte
 
+
 @app.route('/products', methods=['GET'])
 def show_all_products():
     return render_template('show_all_products.html', products=Product.query.all())
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

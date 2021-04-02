@@ -16,10 +16,10 @@
         <td>{{ user.prenom }}
         <td>{{ user.mail }}
         <td>{{ user.telephone }}
+          <td> <a href="{{ url_for('show_update',identifier= user.id ) }}">Update</a>
       {%- endfor %}
     </table>
     <p>
-      <input type=submit value="Update">
-      <a href="{{ url_for('new') }}">New item</a>
+      <a href="{{ url_for('show_new') }}">New item</a>
   </form>
 {% endblock %}

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2>Modifier l'utilisateur</h2>
+  <form action="" method=put class=user>
+    <p>
+      Nom:
+        <label>
+            <input type=text name=nom value="{{ user.nom }}">
+        </label>
+      <p>Prenom:
+          <label>
+              <input type=text class=user value="{{ user.prenom }}">
+          </label>
+      <p>Mail:
+        <label>
+            <input type=text name="mail" value="{{ user.email }}">
+        </label>
+      <p>Telephone:
+          <label>
+              <input type=text name="telephone" value="{{ user.telephone }}">
+          </label>
+      <p>
+      <input type=submit value="Update entry">
+      <a href="{{ url_for('show_all_users') }}">Retour à la liste</a>
+  </form>
+{% endblock %}
