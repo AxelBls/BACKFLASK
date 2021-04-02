@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
   <h2>All Products</h2>
-  <form action="{{ url_for('show_all_products') }}" method=post>
+  <form action="{{ url_for('update_user') }}" method=post>
     <table class=products>
       <tr>
         <th>#
@@ -12,8 +12,8 @@
       <tr class=title>
         <td>{{ product.id }}
         <td>{{ product.nom }}
-        <td>{{ user.prix }}
-        <td>{{ user.qte }}
+        <td>{{ product.prix }}
+        <td>{{ product.qte }}
       {%- endfor %}
     </table>
     <p>

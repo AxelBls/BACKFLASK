@@ -86,7 +86,7 @@ class Product(db.Model):
 
 @app.route('/products', methods=['GET'])
 def show_all_products():
-    return render_template('show_all_products', products=Product.query.all())
+    return render_template('show_all_products.html', products=Product.query.all())
 
 
 if __name__ == '__main__':
