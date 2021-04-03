@@ -17,6 +17,9 @@
         <td>{{ user.mail }}
         <td>{{ user.telephone }}
           <td> <a href="{{ url_for('show_update',identifier= user.id ) }}">Update</a>
+          <td> <form method="post" action="./user/delete">
+          <input type="submit" name="delete_button" value={{ user.id }}>
+            </form>
       {%- endfor %}
     </table>
     <p>

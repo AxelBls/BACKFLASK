@@ -35,6 +35,16 @@ def show_all_users():
     return render_template('show_all_users.html', users=User.query.all())
 
 
+@app.route('/user/delete', methods=['POST'])
+def delete_user():
+    identifier = request.form['delete_button']
+    user = User.query.get(identifier)
+    db.session.delete(user)
+    flash('UTILISATEUR SUPPRIME')
+    db.session.commit()
+    return redirect(url_for('show_all_users'))
+
+
 @app.route('/user/new', methods=['GET'])
 def show_new_user():
     return render_template('add_new_user.html')
