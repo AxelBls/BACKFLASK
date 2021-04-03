@@ -104,5 +104,31 @@ def show_all_products():
     return render_template('show_all_products.html', products=Product.query.all())
 
 
+@app.route('/products/new', methods=['GET'])
+def show_new_product():
+    return render_template('add_new_product.html')
+
+
+# Cette fonction permet de créer une nouvelle entité user dans la table users (on utilise la requête http POST)
+@app.route('/products/new', methods=['GET', 'POST'])
+def add_new_product():
+    if not request.form.get('nom', False):
+        flash('Le nom est requis', 'error')
+    elif not request.form.get('description', False):
+        flash('La desription est requise', 'error')
+    elif not request.form.get('quantité', False):
+        flash('La quantité est requise', 'error')
+    elif not request.form.get('prix', False):
+        flash('mettre le n° tel est recommandé', 'warning')
+    else:
+        product = Product(request.form['nom'], request.form['description'], request.form['quantité'],
+                          request.form['prix'])
+        db.session.add(product)
+        db.session.commit()
+        flash(u'Produit bien créé !')
+        return redirect(url_for('show_all_products'))
+    return render_template('add_new_product.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
