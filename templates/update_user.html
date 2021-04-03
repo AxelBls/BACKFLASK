@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
 <h2>Modifier l'utilisateur</h2>
-  <form action="" method=put class=user>
+  <form action="" method=post >
     <p>
       Nom:
         <label>
@@ -9,11 +9,11 @@
         </label>
       <p>Prenom:
           <label>
-              <input type=text class=user value="{{ user.prenom }}">
+              <input type=text name=prenom value="{{ user.prenom }}">
           </label>
       <p>Mail:
         <label>
-            <input type=text name="mail" value="{{ user.email }}">
+            <input type=text name="mail" value="{{ user.mail }}">
         </label>
       <p>Telephone:
           <label>

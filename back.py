@@ -62,17 +62,21 @@ def new():
 
 @app.route('/user/update/<identifier>', methods=['GET'])
 def show_update(identifier):
-    return render_template('update_user.html', user=User.query.filter_by(id=identifier).first)
+    return render_template('update_user.html', user=User.query.get(identifier))
 
 
 # Cette fonction permet la modification d'une donnée d'une entitée dans la table users
-@app.route('/user/update/', methods=['GET', 'PUT'])
+@app.route('/user/update/<identifier>', methods=['POST'])
 def update_user(identifier):
-    for user in User.query.filter_by(id=identifier).first:
-        user.nom = ('nom.%d' % user.nom) in request.form
-        user.prenom = ('prenom.%d' % user.prenom) in request.form
-        user.mail = ('mail.%d' % user.mail) in request.form
-        user.telephone = ('telephone.%d' % user.telephone) in request.form
+    user = User.query.filter_by(id=identifier).first()
+    nom = request.form.get("nom")
+    prenom = request.form.get("prenom")
+    mail = request.form.get("mail")
+    telephone = request.form.get("telephone")
+    user.nom = nom
+    user.prenom = prenom
+    user.mail = mail
+    user.telephone = telephone
     flash('UTILISATEUR MIS A JOUR')
     db.session.commit()
     return redirect(url_for('show_all_users'))
