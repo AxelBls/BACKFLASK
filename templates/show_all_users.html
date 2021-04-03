@@ -16,7 +16,7 @@
         <td>{{ user.prenom }}
         <td>{{ user.mail }}
         <td>{{ user.telephone }}
-          <td> <a href="{{ url_for('show_update',identifier= user.id ) }}">Update</a>
+          <td> <a href="{{ url_for('show_update_user',identifier= user.id ) }}">Update</a>
       {%- endfor %}
     </table>
     <p>

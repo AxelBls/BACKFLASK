@@ -61,7 +61,7 @@ def add_new_user():
 
 
 @app.route('/user/update/<identifier>', methods=['GET'])
-def show_update(identifier):
+def show_update_user(identifier):
     return render_template('update_user.html', user=User.query.get(identifier))
 
 
@@ -128,6 +128,24 @@ def add_new_product():
         flash(u'Produit bien créé !')
         return redirect(url_for('show_all_products'))
     return render_template('add_new_product.html')
+
+
+@app.route('/products/update/<identifier>', methods=['GET'])
+def show_update_product(identifier):
+    return render_template('update_product.html', product=Product.query.get(identifier))
+
+
+# Cette fonction permet la modification d'une donnée d'une entitée dans la table users
+@app.route('/products/update/<identifier>', methods=['POST'])
+def update_product(identifier):
+    product = Product.query.get(identifier)
+    product.nom = request.form.get("nom")
+    product.description = request.form.get("description")
+    product.qte = request.form.get("quantité")
+    product.prix = request.form.get("prix")
+    flash('PRODUIT MIS A JOUR')
+    db.session.commit()
+    return redirect(url_for('show_all_products'))
 
 
 if __name__ == '__main__':
