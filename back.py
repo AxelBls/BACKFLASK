@@ -68,7 +68,7 @@ def show_update(identifier):
 # Cette fonction permet la modification d'une donnée d'une entitée dans la table users
 @app.route('/user/update/<identifier>', methods=['POST'])
 def update_user(identifier):
-    user = User.query.filter_by(id=identifier).first()
+    user = User.query.get(identifier)
     nom = request.form.get("nom")
     prenom = request.form.get("prenom")
     mail = request.form.get("mail")

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
   <h2>All Products</h2>
-  <form action="{{ url_for('update_user') }}" method=post>
+  <form action="{{ url_for('show_all_users') }}" method=get>
     <table class=products>
       <tr>
         <th>#
