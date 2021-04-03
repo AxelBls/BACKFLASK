@@ -32,17 +32,17 @@ class User(db.Model):
 # utilisant la requête http GET
 @app.route('/user', methods=['GET'])
 def show_all_users():
-    return render_template('show_all.html', users=User.query.all())
+    return render_template('show_all_users.html', users=User.query.all())
 
 
 @app.route('/user/new', methods=['GET'])
-def show_new():
-    return render_template('new.html')
+def show_new_user():
+    return render_template('add_new_user.html')
 
 
 # Cette fonction permet de créer une nouvelle entité user dans la table users (on utilise la requête http POST)
 @app.route('/user/new', methods=['GET', 'POST'])
-def new():
+def add_new_user():
     if not request.form.get('nom', False):
         flash('Le nom est requis', 'error')
     elif not request.form.get('prenom', False):
@@ -57,7 +57,7 @@ def new():
         db.session.commit()
         flash(u'Compte bien créé !')
         return redirect(url_for('show_all_users'))
-    return render_template('new.html')
+    return render_template('add_new_user.html')
 
 
 @app.route('/user/update/<identifier>', methods=['GET'])
