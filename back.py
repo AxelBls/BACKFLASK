@@ -38,7 +38,7 @@ def show_all_users():
 @app.route('/user/delete', methods=['POST'])
 def delete_user():
     identifier = request.form['delete_button']
-    user = User.query.get(identifier)
+    user = User.query.filter_by(id=identifier).first()
     db.session.delete(user)
     flash('UTILISATEUR SUPPRIME')
     db.session.commit()
