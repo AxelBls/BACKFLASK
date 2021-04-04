@@ -104,6 +104,16 @@ def show_all_products():
     return render_template('show_all_products.html', products=Product.query.all())
 
 
+@app.route('/products/delete', methods=['POST'])
+def delete_product():
+    identifier = request.form['delete_button']
+    product = Product.query.get(identifier)
+    db.session.delete(product)
+    flash('PRODUIT SUPPRIME')
+    db.session.commit()
+    return redirect(url_for('show_all_products'))
+
+
 @app.route('/products/new', methods=['GET'])
 def show_new_product():
     return render_template('add_new_product.html')
