@@ -114,5 +114,59 @@ def show_all_products():
     return render_template('show_all_products.html', products=Product.query.all())
 
 
+@app.route('/products/delete', methods=['POST'])
+def delete_product():
+    identifier = request.form['delete_button']
+    product = Product.query.get(identifier)
+    db.session.delete(product)
+    flash('PRODUIT SUPPRIME')
+    db.session.commit()
+    return redirect(url_for('show_all_products'))
+
+
+@app.route('/products/new', methods=['GET'])
+def show_new_product():
+    return render_template('add_new_product.html')
+
+
+# Cette fonction permet de créer une nouvelle entité user dans la table users (on utilise la requête http POST)
+@app.route('/products/new', methods=['GET', 'POST'])
+def add_new_product():
+    if not request.form.get('nom', False):
+        flash('Le nom est requis', 'error')
+    elif not request.form.get('description', False):
+        flash('La desription est requise', 'error')
+    elif not request.form.get('quantité', False):
+        flash('La quantité est requise', 'error')
+    elif not request.form.get('prix', False):
+        flash('mettre le n° tel est recommandé', 'warning')
+    else:
+        product = Product(request.form['nom'], request.form['description'], request.form['quantité'],
+                          request.form['prix'])
+        db.session.add(product)
+        db.session.commit()
+        flash(u'Produit bien créé !')
+        return redirect(url_for('show_all_products'))
+    return render_template('add_new_product.html')
+
+
+@app.route('/products/update/<identifier>', methods=['GET'])
+def show_update_product(identifier):
+    return render_template('update_product.html', product=Product.query.get(identifier))
+
+
+# Cette fonction permet la modification d'une donnée d'une entitée dans la table users
+@app.route('/products/update/<identifier>', methods=['POST'])
+def update_product(identifier):
+    product = Product.query.get(identifier)
+    product.nom = request.form.get("nom")
+    product.description = request.form.get("description")
+    product.qte = request.form.get("quantité")
+    product.prix = request.form.get("prix")
+    flash('PRODUIT MIS A JOUR')
+    db.session.commit()
+    return redirect(url_for('show_all_products'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)

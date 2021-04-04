@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
   <h2>All Products</h2>
-  <form action="{{ url_for('show_all_users') }}" method=get>
+  <form action="{{ url_for('show_all_products') }}" method=get>
     <table class=products>
       <tr>
         <th>#
@@ -14,10 +14,14 @@
         <td>{{ product.nom }}
         <td>{{ product.prix }}
         <td>{{ product.qte }}
+          <td> <a href="{{ url_for('show_update_product',identifier= product.id ) }}">Update</a>
+          <td>
+            <form method="post" action="{{ url_for('delete_product') }}">
+                <input type="submit" name="delete_button" value={{ product.id }}>
+            </form>
       {%- endfor %}
     </table>
     <p>
-      <input type=submit value="Update">
-      <a href="{{ url_for('add_new_user') }}">New item</a>
+      <a href="{{ url_for('add_new_product') }}">New item</a>
   </form>
 {% endblock %}
