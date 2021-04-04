@@ -71,7 +71,7 @@ def add_new_user():
 
 
 @app.route('/user/update/<identifier>', methods=['GET'])
-def show_update(identifier):
+def show_update_user(identifier):
     return render_template('update_user.html', user=User.query.get(identifier))
 
 
